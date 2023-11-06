@@ -1,0 +1,33 @@
+// plant API
+
+GET {{url}}/plants
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/plants/1
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/plants/10
+Authorization: Bearer {{token}}
+###
+
+GET {{url}}/plants/type/rose
+Authorization: Bearer {{token}}
+
+###
+
+POST {{url}}/plants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plantType": "Rose",
+  "plantName": "Gallicanae",
+  "maxHeight": 350,
+  "price": 299.0
+}
+
+###
