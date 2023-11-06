@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlantDAOMock implements IPlantDAO {
+public class PlantDAOMock implements IPlantDAO<PlantDTO> {
     private static List<PlantDTO> mockDB;
     private static PlantDAOMock instance;
 
@@ -60,11 +60,13 @@ public class PlantDAOMock implements IPlantDAO {
 
     public List<PlantDTO> populateMockDB() {
         ArrayList<PlantDTO> plants = new ArrayList<>();
-        plants.add(new PlantDTO(1, "Rose", "Albertine", 400, 199.5f));
+       /* plants.add(new PlantDTO(1, "Rose", "Albertine", 400, 199.5f));
         plants.add(new PlantDTO(2, "Bush", "Aronia", 400, 169.5f));
         plants.add(new PlantDTO(3, "FruitsAndBerries", "AromaApple", 350, 399.5f));
         plants.add(new PlantDTO(4, "Rhododendron", "Astrid", 40, 269.5f));
         plants.add(new PlantDTO(5, "Rose", "The DarkLady", 100, 199.5f));
+
+        */
         return plants;
     }
 

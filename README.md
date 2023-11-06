@@ -80,6 +80,56 @@ Response code: 500 (Server Error); Time: 4ms (4 ms); Content length: 119 bytes (
 > The stream API is inspired by the functional programming paradigm.
 ## Task 4
 
-## Task 5
+Testing started at 14:41 ...
+HTTP/1.1 200 OK
+Date: Mon, 06 Nov 2023 13:41:05 GMT
+Content-Type: application/json
+Content-Length: 481
 
+Response file saved.
+> 2023-11-06T144106.200.json
+
+Response code: 200 (OK); Time: 364ms (364 ms); Content length: 481 bytes (481 B)
+HTTP/1.1 200 OK
+Date: Mon, 06 Nov 2023 13:41:06 GMT
+Content-Type: application/json
+Content-Length: 89
+
+Response file saved.
+> 2023-11-06T144106-1.200.json
+
+Response code: 200 (OK); Time: 22ms (22 ms); Content length: 89 bytes (89 B)
+HTTP/1.1 500 Server Error
+Date: Mon, 06 Nov 2023 13:41:06 GMT
+Content-Type: application/json
+Content-Length: 119
+
+Response file saved.
+> 2023-11-06T144106.500.json
+
+Response code: 500 (Server Error); Time: 60ms (60 ms); Content length: 119 bytes (119 B)
+HTTP/1.1 200 OK
+Date: Mon, 06 Nov 2023 13:41:06 GMT
+Content-Type: application/json
+Content-Length: 2
+
+Response file saved.
+> 2023-11-06T144106-2.200.json
+
+Response code: 200 (OK); Time: 65ms (65 ms); Content length: 2 bytes (2 B)
+HTTP/1.1 200 OK
+Date: Mon, 06 Nov 2023 13:41:06 GMT
+Content-Type: application/json
+Content-Length: 77
+
+Response file saved.
+> 2023-11-06T144106-3.200.json
+
+Response code: 200 (OK); Time: 16ms (16 ms); Content length: 77 bytes (77 B)
+
+## Task 5
+Unit-test er hvor man tester en enkelt metode,
+og integration test er hvor man tester mange metoder sammen, altså man tester fx mellem databasen, controlleren og metoderne.
 ## Task 6
+Forskellen er at i PlantDAO test, tester vi på selve databasen
+og i PlantController test, tester vi på selve endpointsne.

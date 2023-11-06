@@ -6,14 +6,19 @@ import dk.lyngby.dto.PlantDTO;
 import dk.lyngby.exception.ApiException;
 import dk.lyngby.model.Plant;
 import dk.lyngby.model.Reseller;
+import dk.lyngby.routes.Routes;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class PlantDAO implements IPlantDAO {
+public class PlantDAO implements IPlantDAO<Plant> {
     private static PlantDAO instance;
     private static EntityManagerFactory emf;
+    // Til logger, hvis vi skal bruge det
+   private final Logger LOGGER = LoggerFactory.getLogger(PlantDAO.class);
 
     public static IPlantDAO getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
@@ -25,56 +30,53 @@ public class PlantDAO implements IPlantDAO {
 
 
     @Override
-    public PlantDTO read(Integer integer) throws ApiException {
+    public Plant read(Integer integer) throws ApiException {
         try (var em = emf.createEntityManager()) {
-            var plant = em.find(PlantDTO.class, integer);
+            var plant = em.find(Plant.class, integer);
             if (plant == null) {
-                throw new ApiException(404, "Plant not found");
+               ApiException e  =   new ApiException(404, "Plant not found");
+               LOGGER.error("Plant not found. \n ", e);
+               throw e;
             }
             return plant;
         }
     }
 
     @Override
-    public List<PlantDTO> readAll() {
+    public List<Plant> readAll() {
         try (EntityManager em = emf.createEntityManager()) {
-            var query = em.createQuery("SELECT p FROM Plant p", PlantDTO.class);
+            var query = em.createQuery("SELECT p FROM Plant p", Plant.class);
             return query.getResultList();
         }
     }
 
     @Override
-    public PlantDTO create(PlantDTO plantDTO) throws ApiException {
+    public Plant create(Plant plant) throws ApiException {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-
-            Plant p = new Plant(plantDTO);
-
-            Reseller reseller = em.find(Reseller.class, plantDTO.getId());
-            if (reseller == null) {
-                throw new ApiException(404, "Reseller with id: " + plantDTO.getId() + " not found");
-            }
-
-            p.getResellers().add(reseller);
-            em.persist(p);
+            em.persist(plant);
             em.getTransaction().commit();
-            return plantDTO;
+
+            //LOGGER.info("Plant created with id: " + plant.getId());
+
+            return plant;
+
         }
     }
 
     @Override
-    public PlantDTO update(Integer integer, PlantDTO plantDTO) throws ApiException {
+    public Plant update(Integer integer, Plant plant) throws ApiException {
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            Plant plant = em.find(Plant.class, integer);
+            Plant plant_ = em.find(Plant.class, integer);
 
-            plant.setName(plantDTO.getName());
-            plant.setType(plantDTO.getPlantType());
-            plant.setPrice(plantDTO.getPrice());
+            plant_.setName(plant.getName());
+            plant_.setType(plant.getType());
+            plant_.setPrice(plant.getPrice());
 
-            em.merge(plant);
+            em.merge(plant_);
             em.getTransaction().commit();
-            return plantDTO;
+            return plant_;
         }
     }
 
@@ -94,11 +96,12 @@ public class PlantDAO implements IPlantDAO {
 
 
     @Override
-    public List<PlantDTO> getPlantByType(String type) {
+    public List<Plant> getPlantByType(String type) {
         try (var em = emf.createEntityManager()) {
-            var query = em.createQuery("SELECT p FROM Plant p WHERE p.type = :type", PlantDTO.class);
+            var query = em.createQuery("SELECT p FROM Plant p WHERE p.type = :type", Plant.class);
             query.setParameter("type", type);
             return query.getResultList();
         }
     }
+
 }

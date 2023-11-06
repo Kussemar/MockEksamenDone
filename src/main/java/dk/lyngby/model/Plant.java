@@ -50,4 +50,28 @@ public class Plant {
         this.maxHeight = dto.getMaxHeight();
         this.price = dto.getPrice();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plant plant = (Plant) o;
+
+        if (id != plant.id) return false;
+        if (maxHeight != plant.maxHeight) return false;
+        if (Float.compare(price, plant.price) != 0) return false;
+        if (!type.equals(plant.type)) return false;
+        return name.equals(plant.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + type.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + maxHeight;
+        result = 31 * result + (price != 0.0f ? Float.floatToIntBits(price) : 0);
+        return result;
+    }
 }

@@ -1,6 +1,8 @@
 package dk.lyngby.config;
 
 
+import dk.lyngby.model.Plant;
+import dk.lyngby.model.Reseller;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -86,6 +88,8 @@ public class HibernateConfig {
     private static void getAnnotationConfiguration(Configuration configuration) {
        // configuration.addAnnotatedClass(Hotel.class);
       //  configuration.addAnnotatedClass(Room.class);
+        configuration.addAnnotatedClass(Plant.class);
+        configuration.addAnnotatedClass(Reseller.class);
     }
 
     private static EntityManagerFactory getEntityManagerFactoryConfigDev() {

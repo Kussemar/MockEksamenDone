@@ -31,18 +31,23 @@ public class Reseller {
 
     @ManyToMany(mappedBy = "resellers", cascade = CascadeType.ALL)
 
-    private Set<Plant> plants;
+    private Set<Plant> plants = new HashSet<>();
 
-    public Reseller(String name, String address, String phone, Set<Plant> plants) {
+    public Reseller(String name, String address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.plants = plants;
+
     }
 
     public Reseller(ResellerDTO dto){
         this.name = dto.getName();
         this.address = dto.getAddress();
         this.phone = dto.getPhone();
+    }
+
+    public void addPlant(Plant plant) {
+        plants.add(plant);
+        plant.getResellers().add(this);
     }
 }
